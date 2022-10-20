@@ -1,8 +1,8 @@
 cradle:
   cabal:
     - path: "./app"
-      component: "plutus-starter:lib:plutus-starting-template"
+      component: "plutus-starting-template:lib:plutus-starting-template"
     - path: "./src"
-      component: "plutus-starter:lib:plutus-starting-template"
+      component: "plutus-starting-template:lib:plutus-starting-template"
     - path: "./examples/src"
-      component: "plutus-starter:lib:plutus-starting-template"
+      component: "plutus-starting-template:lib:plutus-starting-template"
