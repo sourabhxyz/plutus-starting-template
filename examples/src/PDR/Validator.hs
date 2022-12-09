@@ -14,13 +14,10 @@
 -- Simple contract illustrating the use of parameterized (P) contract having custom types for datum (D) & redeemer (R).
 module PDR.Validator (MyParam (..), MyDatum (..), MyRedeemer (..), validator) where
 
-import           Plutus.Script.Utils.V2.Typed.Scripts (DatumType, RedeemerType,
-                                                       TypedValidator,
-                                                       ValidatorTypes,
-                                                       mkTypedValidatorParam,
-                                                       mkUntypedValidator,
-                                                       validatorScript)
-import           Plutus.V2.Ledger.Api                 (ScriptContext, Validator)
+import           Plutus.Script.Utils.V2.Typed.Scripts (mkTypedValidatorParam,
+                                                       mkUntypedValidator)
+import           Plutus.V2.Ledger.Api                 (ScriptContext, Validator,
+                                                       mkValidatorScript)
 import qualified PlutusTx
 import           PlutusTx.Prelude                     hiding (Semigroup (..),
                                                        unless)
@@ -40,17 +37,6 @@ mkValidator p dat red _ = traceIfFalse "Total should be 6" isTotalSix
   where
     isTotalSix = pGetNumber p + dGetNumber dat + rGetNumber red == 6
 
-data PDR
-instance ValidatorTypes PDR where
-    type instance DatumType PDR = MyDatum
-    type instance RedeemerType PDR = MyRedeemer
-
-typedValidator :: MyParam -> TypedValidator PDR
-typedValidator = mkTypedValidatorParam @PDR
-        $$(PlutusTx.compile [|| mkValidator ||])
-        $$(PlutusTx.compile [|| wrap ||])
-  where
-    wrap = mkUntypedValidator
-
 validator :: MyParam -> Validator
-validator = validatorScript . typedValidator
+validator p = mkValidatorScript ($$(PlutusTx.compile [|| wrap||]) `PlutusTx.applyCode` PlutusTx.liftCode p)
+  where wrap p' = mkUntypedValidator $ mkValidator p'

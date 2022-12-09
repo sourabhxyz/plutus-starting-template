@@ -16,7 +16,7 @@
 
 ## How to update
 
-- [cabal.project](./cabal.project) is mostly copy-paste of corresponding file from [plutus-apps](https://github.com/input-output-hk/plutus-apps/) repository for the corresponding tag, I have clearly mentioned my additions and their rational in this file. To update this template, you would need to update this file and perhaps other example files if their is any breaking change.
+- [cabal.project](./cabal.project) is mostly copy-paste of corresponding file from [plutus-apps](https://github.com/input-output-hk/plutus-apps/) repository for the corresponding tag (this is necessary because the `plutus-apps` libraries depend on a number of other libraries which are not on Hackage, and so need to be pulled in as `source-repository-package`s themselves), I have clearly mentioned my additions and their rational in this file. To update this template, you would need to update this file and perhaps other example files if their is any breaking change.
 
 > **Note**
 > [`hie.yaml`](./hie.yaml) file was generated with the help of [`implicit-hie`](https://hackage.haskell.org/package/implicit-hie). And the usual drill for that is after you have executed `cabal build`, execute `gen-hie > hie.yaml`.
