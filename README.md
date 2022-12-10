@@ -14,6 +14,9 @@
 5. In a new shell (not inside `nix-shell`), open this directory inside your editor (say `neovim`). When you open, say [PDR.Validator.hs](./examples/src/PDR/Validator.hs), your HLS will take some time to get ready and then it should work.
 6. Back in shell inside `nix`, can run `cabal exec generate-PDR-files` to generate relevant files for `PDR` contract which is an example contract illustrating how to use custom datum & custom redeemer in a parameterized contract.
 
+> **Note**
+> I needed to have [`postgresql`](https://archlinux.org/packages/extra/x86_64/postgresql/) installed on my system so that HLS doesn't complain.
+
 ## How to update
 
 - [cabal.project](./cabal.project) is mostly copy-paste of corresponding file from [plutus-apps](https://github.com/input-output-hk/plutus-apps/) repository for the corresponding tag (this is necessary because the `plutus-apps` libraries depend on a number of other libraries which are not on Hackage, and so need to be pulled in as `source-repository-package`s themselves), I have clearly mentioned my additions and their rational in this file. To update this template, you would need to update this file and perhaps other example files if their is any breaking change.
